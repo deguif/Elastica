@@ -2,4 +2,8 @@ parameters:
     level: 5
     paths:
         - src
+    excludePaths:
+        - src/Transport/HttpAdapter.php
     inferPrivatePropertyTypeFromConstructor: true
+    ignoreErrors:
+        - '/Unsafe usage of new static\(\)./'
