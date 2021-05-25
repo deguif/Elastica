@@ -2,38 +2,16 @@
 
 namespace Elastica\Query;
 
+trigger_deprecation('ruflin/elastica', '7.2.0', 'The "%s" class is deprecated, use "%s" instead. It will be removed in 8.0.', Range::class, RangeQuery::class);
+
 /**
  * Range query.
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
  * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-range-query.html
+ * @deprecated since version 7.2.0, use the RangeQuery class instead.
  */
-class Range extends AbstractQuery
+class Range extends RangeQuery
 {
-    /**
-     * Constructor.
-     *
-     * @param string $fieldName Field name
-     * @param array  $args      Field arguments
-     */
-    public function __construct(?string $fieldName = null, array $args = [])
-    {
-        if ($fieldName) {
-            $this->addField($fieldName, $args);
-        }
-    }
-
-    /**
-     * Adds a range field to the query.
-     *
-     * @param string $fieldName Field name
-     * @param array  $args      Field arguments
-     *
-     * @return $this
-     */
-    public function addField(string $fieldName, array $args): self
-    {
-        return $this->setParam($fieldName, $args);
-    }
 }

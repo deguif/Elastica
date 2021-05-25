@@ -3,7 +3,7 @@
 namespace Elastica\Test\Query;
 
 use Elastica\Document;
-use Elastica\Query\QueryString;
+use Elastica\Query\QueryStringQuery;
 use Elastica\Test\Base as BaseTest;
 use Elastica\Util;
 
@@ -30,7 +30,7 @@ class EscapeStringTest extends BaseTest
         // Refresh index
         $index->refresh();
 
-        $queryString = new QueryString(Util::escapeTerm('test 7/6'));
+        $queryString = new QueryStringQuery(Util::escapeTerm('test 7/6'));
         $resultSet = $index->search($queryString);
 
         $this->assertEquals(1, $resultSet->count());

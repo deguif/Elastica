@@ -7,8 +7,8 @@ use Elastica\Aggregation\Filter;
 use Elastica\Document;
 use Elastica\Index;
 use Elastica\Query;
-use Elastica\Query\Range;
-use Elastica\Query\Term;
+use Elastica\Query\RangeQuery;
+use Elastica\Query\TermQuery;
 
 /**
  * @internal
@@ -28,7 +28,7 @@ class FilterTest extends BaseAggregationTest
         ];
 
         $agg = new Filter('in_stock_products');
-        $agg->setFilter(new Range('stock', ['gt' => 0]));
+        $agg->setFilter(new RangeQuery('stock', ['gt' => 0]));
         $avg = new Avg('avg_price');
         $avg->setField('price');
         $agg->addAggregation($avg);
@@ -42,7 +42,7 @@ class FilterTest extends BaseAggregationTest
     public function testFilterAggregation(): void
     {
         $agg = new Filter('filter');
-        $agg->setFilter(new Term(['color' => 'blue']));
+        $agg->setFilter(new TermQuery(['color' => 'blue']));
         $avg = new Avg('price');
         $avg->setField('price');
         $agg->addAggregation($avg);
@@ -78,7 +78,7 @@ class FilterTest extends BaseAggregationTest
      */
     public function testConstruct(): void
     {
-        $agg = new Filter('foo', new Term(['color' => 'blue']));
+        $agg = new Filter('foo', new TermQuery(['color' => 'blue']));
 
         $expected = [
             'filter' => [

@@ -4,7 +4,7 @@ namespace Elastica\Test\Query;
 
 use Elastica\Query;
 use Elastica\Query\MatchQuery;
-use Elastica\Query\Term;
+use Elastica\Query\TermQuery;
 use Elastica\Rescore\Query as QueryRescore;
 use Elastica\Test\Base as BaseTest;
 
@@ -21,7 +21,7 @@ class RescoreTest extends BaseTest
         $query = new Query();
         $mainQuery = new MatchQuery();
         $mainQuery = $mainQuery->setFieldQuery('test1', 'foo');
-        $secQuery = new Term();
+        $secQuery = new TermQuery();
         $secQuery = $secQuery->setTerm('test2', 'bar', 2);
         $queryRescore = new QueryRescore($secQuery);
         $query->setQuery($mainQuery);
@@ -61,7 +61,7 @@ class RescoreTest extends BaseTest
         $query = new Query();
         $mainQuery = new MatchQuery();
         $mainQuery = $mainQuery->setFieldQuery('test1', 'foo');
-        $secQuery = new Term();
+        $secQuery = new TermQuery();
         $secQuery = $secQuery->setTerm('test2', 'bar', 2);
         $queryRescore = new QueryRescore($secQuery);
         $queryRescore->setWindowSize(50);
@@ -103,7 +103,7 @@ class RescoreTest extends BaseTest
         $query = new Query();
         $mainQuery = new MatchQuery();
         $mainQuery = $mainQuery->setFieldQuery('test1', 'foo');
-        $secQuery = new Term();
+        $secQuery = new TermQuery();
         $secQuery = $secQuery->setTerm('test2', 'bar', 2);
         $queryRescore = new QueryRescore($secQuery);
         $queryRescore->setWindowSize(50);
@@ -150,12 +150,12 @@ class RescoreTest extends BaseTest
         $mainQuery = new MatchQuery();
         $mainQuery = $mainQuery->setFieldQuery('test1', 'foo');
 
-        $secQuery1 = new Term();
+        $secQuery1 = new TermQuery();
         $secQuery1 = $secQuery1->setTerm('test2', 'bar', 1);
         $rescoreQuery1 = new QueryRescore();
         $rescoreQuery1->setRescoreQuery($secQuery1);
 
-        $secQuery2 = new Term();
+        $secQuery2 = new TermQuery();
         $secQuery2 = $secQuery2->setTerm('test2', 'tom', 2);
         $rescoreQuery2 = new QueryRescore();
         $rescoreQuery2->setRescoreQuery($secQuery2);
@@ -221,7 +221,7 @@ class RescoreTest extends BaseTest
         $mainQuery = (new MatchQuery())
             ->setFieldQuery('test1', 'foo')
         ;
-        $secQuery = (new Term())
+        $secQuery = (new TermQuery())
             ->setTerm('test2', 'bar', 2)
         ;
         $queryRescore = (new QueryRescore($secQuery))

@@ -6,8 +6,8 @@ use Elastica\Document;
 use Elastica\Index;
 use Elastica\Mapping;
 use Elastica\Query;
-use Elastica\Query\MatchAll;
-use Elastica\Query\Term;
+use Elastica\Query\MatchAllQuery;
+use Elastica\Query\TermQuery;
 use Elastica\Request;
 use Elastica\Test\Base as BaseTest;
 
@@ -72,8 +72,8 @@ class TransportBenchmarkTest extends BaseTest
         for ($i = 0; $i < $this->_max; ++$i) {
             $test = \mt_rand(1, $this->_max);
             $query = new Query();
-            $query->setQuery(new MatchAll());
-            $query->setPostFilter(new Term(['test' => $test]));
+            $query->setQuery(new MatchAllQuery());
+            $query->setPostFilter(new TermQuery(['test' => $test]));
             $result = $index->search($query);
             $times[] = $result->getResponse()->getQueryTime();
         }

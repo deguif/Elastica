@@ -8,9 +8,9 @@ use Elastica\Exception\InvalidException;
 use Elastica\Exception\ResponseException;
 use Elastica\Index;
 use Elastica\Mapping;
-use Elastica\Query\QueryString;
-use Elastica\Query\SimpleQueryString;
-use Elastica\Query\Term;
+use Elastica\Query\QueryStringQuery;
+use Elastica\Query\SimpleQueryStringQuery;
+use Elastica\Query\TermQuery;
 use Elastica\Request;
 use Elastica\Script\Script;
 use Elastica\Status;
@@ -141,7 +141,7 @@ class IndexTest extends BaseTest
 
         $this->assertEquals(2, $index->count());
 
-        $query = new Term();
+        $query = new TermQuery();
         $key = 'name';
         $value = 'nicolas';
         $query->setTerm($key, $value);
@@ -167,7 +167,7 @@ class IndexTest extends BaseTest
 
         $this->assertEquals(2, $index->count('', Request::GET));
 
-        $query = new Term();
+        $query = new TermQuery();
         $key = 'name';
         $value = 'nicolas';
         $query->setTerm($key, $value);
@@ -226,7 +226,7 @@ class IndexTest extends BaseTest
         $this->assertEquals(1, $response->count());
 
         // Delete first document
-        $response = $index->deleteByQuery(new SimpleQueryString('nicolas'));
+        $response = $index->deleteByQuery(new SimpleQueryStringQuery('nicolas'));
         $this->assertTrue($response->isOk());
 
         $index->refresh();
@@ -305,7 +305,7 @@ class IndexTest extends BaseTest
         $this->assertEquals(1, $response->count());
 
         // Route to the wrong document id; should not delete
-        $response = $index->deleteByQuery(new SimpleQueryString('nicolas'), ['routing' => $routing2]);
+        $response = $index->deleteByQuery(new SimpleQueryStringQuery('nicolas'), ['routing' => $routing2]);
         $this->assertTrue($response->isOk());
 
         $index->refresh();
@@ -317,7 +317,7 @@ class IndexTest extends BaseTest
         $this->assertEquals(1, $response->count());
 
         // Delete first document
-        $response = $index->deleteByQuery(new SimpleQueryString('nicolas'), ['routing' => $routing1]);
+        $response = $index->deleteByQuery(new SimpleQueryStringQuery('nicolas'), ['routing' => $routing1]);
         $this->assertTrue($response->isOk());
 
         $index->refresh();
@@ -700,7 +700,7 @@ class IndexTest extends BaseTest
         $client = $this->createMock(Client::class);
         $index = new Index($client, 'test');
 
-        $query = new QueryString('test');
+        $query = new QueryStringQuery('test');
         $options = 5;
 
         $search = $index->createSearch($query, $options);

@@ -5,8 +5,8 @@ namespace Elastica\Test\Query;
 use Elastica\Document;
 use Elastica\Index;
 use Elastica\Query\BoolQuery;
-use Elastica\Query\Ids;
-use Elastica\Query\Term;
+use Elastica\Query\IdsQuery;
+use Elastica\Query\TermQuery;
 use Elastica\Test\Base as BaseTest;
 
 /**
@@ -21,19 +21,19 @@ class BoolQueryTest extends BaseTest
     {
         $query = new BoolQuery();
 
-        $idsQuery1 = new Ids();
+        $idsQuery1 = new IdsQuery();
         $idsQuery1->setIds(1);
 
-        $idsQuery2 = new Ids();
+        $idsQuery2 = new IdsQuery();
         $idsQuery2->setIds(2);
 
-        $idsQuery3 = new Ids();
+        $idsQuery3 = new IdsQuery();
         $idsQuery3->setIds(3);
 
-        $filter1 = new Term();
+        $filter1 = new TermQuery();
         $filter1->setTerm('test', '1');
 
-        $filter2 = new Term();
+        $filter2 = new TermQuery();
         $filter2->setTerm('username', 'ruth');
 
         $boost = 1.2;
@@ -72,10 +72,10 @@ class BoolQueryTest extends BaseTest
     {
         $boolQuery = new BoolQuery();
 
-        $term1 = new Term();
+        $term1 = new TermQuery();
         $term1->setParam('interests', 84);
 
-        $term2 = new Term();
+        $term2 = new TermQuery();
         $term2->setParam('interests', 92);
 
         $boolQuery->addShould($term1)->addShould($term2);
@@ -108,31 +108,31 @@ class BoolQueryTest extends BaseTest
         $index->refresh();
 
         $boolQuery = new BoolQuery();
-        $termQuery1 = new Term(['test' => '2']);
+        $termQuery1 = new TermQuery(['test' => '2']);
         $boolQuery->addMust($termQuery1);
         $resultSet = $index->search($boolQuery);
 
         $this->assertEquals(3, $resultSet->count());
 
-        $termFilter = new Term(['test' => '4']);
+        $termFilter = new TermQuery(['test' => '4']);
         $boolQuery->addFilter($termFilter);
         $resultSet = $index->search($boolQuery);
 
         $this->assertEquals(2, $resultSet->count());
 
-        $termQuery2 = new Term(['test' => '5']);
+        $termQuery2 = new TermQuery(['test' => '5']);
         $boolQuery->addMust($termQuery2);
         $resultSet = $index->search($boolQuery);
 
         $this->assertEquals(1, $resultSet->count());
 
-        $termQuery3 = new Term(['username' => 'hans']);
+        $termQuery3 = new TermQuery(['username' => 'hans']);
         $boolQuery->addMust($termQuery3);
         $resultSet = $index->search($boolQuery);
 
         $this->assertEquals(1, $resultSet->count());
 
-        $termQuery4 = new Term(['username' => 'emil']);
+        $termQuery4 = new TermQuery(['username' => 'emil']);
         $boolQuery->addMust($termQuery4);
         $resultSet = $index->search($boolQuery);
 

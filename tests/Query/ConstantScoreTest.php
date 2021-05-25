@@ -2,8 +2,8 @@
 
 namespace Elastica\Test\Query;
 
-use Elastica\Query\ConstantScore;
-use Elastica\Query\Ids;
+use Elastica\Query\ConstantScoreQuery;
+use Elastica\Query\IdsQuery;
 use Elastica\Test\Base as BaseTest;
 
 /**
@@ -16,10 +16,10 @@ class ConstantScoreTest extends BaseTest
      */
     public function testToArray(): void
     {
-        $query = new ConstantScore();
+        $query = new ConstantScoreQuery();
 
         $boost = 1.2;
-        $filter = new Ids();
+        $filter = new IdsQuery();
         $filter->setIds([1]);
         $query->setFilter($filter);
         $query->setBoost($boost);
@@ -39,10 +39,10 @@ class ConstantScoreTest extends BaseTest
      */
     public function testConstruct(): void
     {
-        $filter = new Ids();
+        $filter = new IdsQuery();
         $filter->setIds([1]);
 
-        $query = new ConstantScore($filter);
+        $query = new ConstantScoreQuery($filter);
 
         $expectedArray = [
             'constant_score' => [
@@ -58,7 +58,7 @@ class ConstantScoreTest extends BaseTest
      */
     public function testConstructEmpty(): void
     {
-        $query = new ConstantScore();
+        $query = new ConstantScoreQuery();
         $expectedArray = ['constant_score' => []];
 
         $this->assertEquals($expectedArray, $query->toArray());

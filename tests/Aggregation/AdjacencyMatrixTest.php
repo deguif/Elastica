@@ -7,8 +7,8 @@ use Elastica\Aggregation\Avg;
 use Elastica\Document;
 use Elastica\Index;
 use Elastica\Query;
-use Elastica\Query\Term;
-use Elastica\Query\Terms;
+use Elastica\Query\TermQuery;
+use Elastica\Query\TermsQuery;
 
 /**
  * @internal
@@ -44,10 +44,10 @@ class AdjacencyMatrixTest extends BaseAggregationTest
 
         $agg = new AdjacencyMatrix('by_color');
 
-        $agg->addFilter(new Term(['color' => '']), '');
-        $agg->addFilter(new Term(['color' => '0']), '0');
-        $agg->addFilter(new Term(['color' => 'blue']), 'blue');
-        $agg->addFilter(new Term(['color' => 'red']), 'red');
+        $agg->addFilter(new TermQuery(['color' => '']), '');
+        $agg->addFilter(new TermQuery(['color' => '0']), '0');
+        $agg->addFilter(new TermQuery(['color' => 'blue']), 'blue');
+        $agg->addFilter(new TermQuery(['color' => 'red']), 'red');
 
         $avg = new Avg('avg_price');
         $avg->setField('price');
@@ -74,7 +74,7 @@ class AdjacencyMatrixTest extends BaseAggregationTest
 
         $agg = new AdjacencyMatrix('by_color');
 
-        $agg->addFilter(new Term(['color' => 'blue']), 'blue');
+        $agg->addFilter(new TermQuery(['color' => 'blue']), 'blue');
 
         $agg->setSeparator('|');
 
@@ -87,9 +87,9 @@ class AdjacencyMatrixTest extends BaseAggregationTest
     public function testAdjacencyMatrixAggregation(): void
     {
         $agg = new AdjacencyMatrix('interactions');
-        $agg->addFilter(new Terms('accounts', ['hillary', 'sidney']), 'grpA');
-        $agg->addFilter(new Terms('accounts', ['donald', 'mitt']), 'grpB');
-        $agg->addFilter(new Terms('accounts', ['vladimir', 'nigel']), 'grpC');
+        $agg->addFilter(new TermsQuery('accounts', ['hillary', 'sidney']), 'grpA');
+        $agg->addFilter(new TermsQuery('accounts', ['donald', 'mitt']), 'grpB');
+        $agg->addFilter(new TermsQuery('accounts', ['vladimir', 'nigel']), 'grpC');
 
         $agg->setSeparator('|');
 

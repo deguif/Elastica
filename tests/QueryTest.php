@@ -4,13 +4,13 @@ namespace Elastica\Test;
 
 use Elastica\Aggregation\Terms as TermsAggregation;
 use Elastica\Collapse;
-use Elastica\Collapse\InnerHits;
+use Elastica\Collapse\InnerHitsQuery;
 use Elastica\Document;
 use Elastica\Exception\InvalidException;
 use Elastica\Mapping;
 use Elastica\Query;
-use Elastica\Query\Term;
-use Elastica\Query\Terms;
+use Elastica\Query\TermQuery;
+use Elastica\Query\TermsQuery;
 use Elastica\Rescore\Query as RescoreQuery;
 use Elastica\Script\Script;
 use Elastica\Script\ScriptFields;
@@ -27,7 +27,7 @@ class QueryTest extends BaseTest
      */
     public function testRawQuery(): void
     {
-        $textQuery = new Term(['title' => 'test']);
+        $textQuery = new TermQuery(['title' => 'test']);
 
         $query1 = Query::create($textQuery);
 
@@ -96,7 +96,7 @@ class QueryTest extends BaseTest
         ]);
         $index->refresh();
 
-        $queryTerm = new Term();
+        $queryTerm = new TermQuery();
         $queryTerm->setTerm('lastname', 'ruflin');
         $query = Query::create($queryTerm);
 
@@ -193,7 +193,7 @@ class QueryTest extends BaseTest
             $this->assertTrue(true);
         }
 
-        $termQuery = new Term();
+        $termQuery = new TermQuery();
         $termQuery->setTerm('text', 'value');
         $query->setQuery($termQuery);
 
@@ -206,7 +206,7 @@ class QueryTest extends BaseTest
     public function testSetQueryToArrayCast(): void
     {
         $query = new Query();
-        $termQuery = new Term();
+        $termQuery = new TermQuery();
         $termQuery->setTerm('text', 'value');
         $query->setQuery($termQuery);
 
@@ -224,7 +224,7 @@ class QueryTest extends BaseTest
     public function testNotCloneInnerObjects(): void
     {
         $query = new Query();
-        $termQuery = new Term();
+        $termQuery = new TermQuery();
         $termQuery->setTerm('text', 'value');
         $query->setQuery($termQuery);
 
@@ -241,7 +241,7 @@ class QueryTest extends BaseTest
     public function testSetQueryToArrayChangeQuery(): void
     {
         $query = new Query();
-        $termQuery = new Term();
+        $termQuery = new TermQuery();
         $termQuery->setTerm('text', 'value');
         $query->setQuery($termQuery);
 
@@ -378,7 +378,7 @@ class QueryTest extends BaseTest
     public function testSetPostFilterToArrayCast(): void
     {
         $query = new Query();
-        $postFilter = new Terms('key', ['term']);
+        $postFilter = new TermsQuery('key', ['term']);
         $query->setPostFilter($postFilter);
 
         $postFilter->addTerm('another term');
@@ -395,7 +395,7 @@ class QueryTest extends BaseTest
     public function testRawPostFilter(): void
     {
         $query = (new Query())
-            ->setQuery(new Term(['field' => 'value']))
+            ->setQuery(new TermQuery(['field' => 'value']))
             ->setParam('post_filter', [
                 'term' => ['field' => 'value'],
             ])
@@ -483,7 +483,7 @@ class QueryTest extends BaseTest
         $collapse
             ->setFieldname('user')
             ->setInnerHits(
-                (new InnerHits())
+                (new InnerHitsQuery())
                     ->setName('last_tweets')
                     ->setSize(5)
                     ->setSort(['date' => 'asc'])
@@ -519,7 +519,7 @@ class QueryTest extends BaseTest
         $collapse
             ->setFieldname('user')
             ->setInnerHits(
-                (new InnerHits())
+                (new InnerHitsQuery())
                     ->setName('last_tweets')
                     ->setSize(5)
                     ->setSort(['date' => 'asc'])
@@ -601,7 +601,7 @@ class QueryTest extends BaseTest
 
         $index->addDocuments($documents);
 
-        $queryTerm = new Term();
+        $queryTerm = new TermQuery();
         $queryTerm->setTerm('firstname', 'antoine');
 
         $index->refresh();

@@ -7,7 +7,7 @@ use Elastica\Document;
 use Elastica\Index;
 use Elastica\Mapping;
 use Elastica\Query;
-use Elastica\Query\Terms;
+use Elastica\Query\TermsQuery;
 
 /**
  * @internal
@@ -23,7 +23,7 @@ class SignificantTermsTest extends BaseAggregationTest
         $agg->setField('temperature');
         $agg->setSize(1);
 
-        $termsQuery = new Terms('color', ['blue', 'red', 'green', 'yellow', 'white']);
+        $termsQuery = new TermsQuery('color', ['blue', 'red', 'green', 'yellow', 'white']);
 
         $query = new Query($termsQuery);
         $query->addAggregation($agg);
@@ -43,10 +43,10 @@ class SignificantTermsTest extends BaseAggregationTest
         $agg = new SignificantTerms('significantTerms');
         $agg->setField('temperature');
         $agg->setSize(1);
-        $termsFilter = new Terms('color', ['blue', 'red', 'green', 'yellow']);
+        $termsFilter = new TermsQuery('color', ['blue', 'red', 'green', 'yellow']);
         $agg->setBackgroundFilter($termsFilter);
 
-        $termsQuery = new Terms('color', ['blue', 'red', 'green', 'yellow', 'white']);
+        $termsQuery = new TermsQuery('color', ['blue', 'red', 'green', 'yellow', 'white']);
 
         $query = new Query($termsQuery);
         $query->addAggregation($agg);
@@ -65,10 +65,10 @@ class SignificantTermsTest extends BaseAggregationTest
         $agg = new SignificantTerms('significantTerms');
         $agg->setField('temperature');
         $agg->setSize(1);
-        $termsFilter = new Terms('color', ['blue', 'red', 'green', 'yellow']);
+        $termsFilter = new TermsQuery('color', ['blue', 'red', 'green', 'yellow']);
         $agg->setBackgroundFilter($termsFilter);
 
-        $termsQuery = new Terms('color', ['blue', 'red', 'green', 'yellow', 'white']);
+        $termsQuery = new TermsQuery('color', ['blue', 'red', 'green', 'yellow', 'white']);
 
         $query = new Query($termsQuery);
         $query->addAggregation($agg);

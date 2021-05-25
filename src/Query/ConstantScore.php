@@ -2,42 +2,16 @@
 
 namespace Elastica\Query;
 
+trigger_deprecation('ruflin/elastica', '7.2.0', 'The "%s" class is deprecated, use "%s" instead. It will be removed in 8.0.', ConstantScore::class, ConstantScoreQuery::class);
+
 /**
  * Constant score query.
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
  * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-constant-score-query.html
+ * @deprecated since version 7.2.0, use the ConstantScoreQuery class instead.
  */
-class ConstantScore extends AbstractQuery
+class ConstantScore extends ConstantScoreQuery
 {
-    /**
-     * Construct constant score query.
-     */
-    public function __construct(?AbstractQuery $filter = null)
-    {
-        if (null !== $filter) {
-            $this->setFilter($filter);
-        }
-    }
-
-    /**
-     * Set filter.
-     *
-     * @return $this
-     */
-    public function setFilter(AbstractQuery $filter): self
-    {
-        return $this->setParam('filter', $filter);
-    }
-
-    /**
-     * Set boost.
-     *
-     * @return $this
-     */
-    public function setBoost(float $boost): self
-    {
-        return $this->setParam('boost', $boost);
-    }
 }

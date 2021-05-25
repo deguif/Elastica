@@ -2,7 +2,7 @@
 
 namespace Elastica;
 
-use Elastica\Collapse\InnerHits;
+use Elastica\Collapse\InnerHitsQuery;
 
 /**
  * Implementation of field collapse.
@@ -22,19 +22,19 @@ class Collapse extends Param
     /**
      * Set inner hits for collapsed field.
      */
-    public function setInnerHits(InnerHits $innerHits): self
+    public function setInnerHits(InnerHitsQuery $innerHits): self
     {
         return $this->setParam('inner_hits', $innerHits);
     }
 
-    public function addInnerHits(InnerHits $innerHits): self
+    public function addInnerHits(InnerHitsQuery $innerHits): self
     {
         $hits = [];
 
         if ($this->hasParam('inner_hits')) {
             $existingInnerHits = $this->getParam('inner_hits');
 
-            $hits = $existingInnerHits instanceof InnerHits ? [$existingInnerHits] : $existingInnerHits;
+            $hits = $existingInnerHits instanceof InnerHitsQuery ? [$existingInnerHits] : $existingInnerHits;
         }
 
         $hits[] = $innerHits;

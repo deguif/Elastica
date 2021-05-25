@@ -2,6 +2,8 @@
 
 namespace Elastica\Query;
 
+trigger_deprecation('ruflin/elastica', '7.2.0', 'The "%s" class is deprecated, use "%s" instead. It will be removed in 8.0.', MatchPhrasePrefix::class, MatchPhrasePrefixQuery::class);
+
 /**
  * Match Phrase Prefix query.
  *
@@ -9,6 +11,7 @@ namespace Elastica\Query;
  * @author Tobias Schultze <http://tobion.de>
  *
  * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query-phrase-prefix.html
+ * @deprecated since version 7.2.0, use the MatchPhraseQueryPrefixQuery class instead.
  */
 class MatchPhrasePrefix extends MatchPhrase
 {

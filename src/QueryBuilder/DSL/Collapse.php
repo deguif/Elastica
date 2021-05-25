@@ -2,7 +2,7 @@
 
 namespace Elastica\QueryBuilder\DSL;
 
-use Elastica\Collapse\InnerHits;
+use Elastica\Collapse\InnerHitsQuery;
 use Elastica\QueryBuilder\DSL;
 
 /**
@@ -17,8 +17,8 @@ class Collapse implements DSL
         return self::TYPE_COLLAPSE;
     }
 
-    public function inner_hits(): InnerHits
+    public function inner_hits(): InnerHitsQuery
     {
-        return new InnerHits();
+        return new InnerHitsQuery();
     }
 }

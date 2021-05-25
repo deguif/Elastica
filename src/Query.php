@@ -5,8 +5,8 @@ namespace Elastica;
 use Elastica\Aggregation\AbstractAggregation;
 use Elastica\Exception\InvalidException;
 use Elastica\Query\AbstractQuery;
-use Elastica\Query\MatchAll;
-use Elastica\Query\QueryString;
+use Elastica\Query\MatchAllQuery;
+use Elastica\Query\QueryStringQuery;
 use Elastica\Script\AbstractScript;
 use Elastica\Script\ScriptFields;
 use Elastica\Suggest\AbstractSuggest;
@@ -58,7 +58,7 @@ class Query extends Param
     {
         switch (true) {
             case empty($query):
-                return new static(new MatchAll());
+                return new static(new MatchAllQuery());
             case $query instanceof self:
                 return $query;
             case $query instanceof AbstractSuggest:
@@ -69,7 +69,7 @@ class Query extends Param
             case \is_array($query):
                 return new static($query);
             case \is_string($query):
-                return new static(new QueryString($query));
+                return new static(new QueryStringQuery($query));
         }
 
         throw new InvalidException('Unexpected argument to create a query for.');
@@ -279,7 +279,7 @@ class Query extends Param
     public function toArray(): array
     {
         if (!$this->hasSuggest && !isset($this->_params['query'])) {
-            $this->setQuery(new MatchAll());
+            $this->setQuery(new MatchAllQuery());
         }
 
         if (isset($this->_params['post_filter']) && 0 === \count($this->_params['post_filter'])) {

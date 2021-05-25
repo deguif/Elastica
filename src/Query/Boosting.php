@@ -2,44 +2,16 @@
 
 namespace Elastica\Query;
 
+trigger_deprecation('ruflin/elastica', '7.2.0', 'The "%s" class is deprecated, use "%s" instead. It will be removed in 8.0.', Boosting::class, BoostingQuery::class);
+
 /**
  * Class Boosting.
  *
  * @author Balazs Nadasdi <yitsushi@gmail.com>
  *
  * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-boosting-query.html
+ * @deprecated since version 7.2.0, use the BoostingQuery class instead.
  */
-class Boosting extends AbstractQuery
+class Boosting extends BoostingQuery
 {
-    public const NEGATIVE_BOOST = 0.2;
-
-    /**
-     * Set the positive query for this Boosting Query.
-     *
-     * @return $this
-     */
-    public function setPositiveQuery(AbstractQuery $query): self
-    {
-        return $this->setParam('positive', $query);
-    }
-
-    /**
-     * Set the negative query for this Boosting Query.
-     *
-     * @return $this
-     */
-    public function setNegativeQuery(AbstractQuery $query): self
-    {
-        return $this->setParam('negative', $query);
-    }
-
-    /**
-     * Set the negative_boost parameter for this Boosting Query.
-     *
-     * @return $this
-     */
-    public function setNegativeBoost(float $negativeBoost): self
-    {
-        return $this->setParam('negative_boost', $negativeBoost);
-    }
 }

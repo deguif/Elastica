@@ -9,8 +9,8 @@ use Elastica\Document;
 use Elastica\Index;
 use Elastica\Mapping;
 use Elastica\Query;
-use Elastica\Query\MatchAll;
-use Elastica\Query\SimpleQueryString;
+use Elastica\Query\MatchAllQuery;
+use Elastica\Query\SimpleQueryStringQuery;
 use Elastica\Script\Script;
 use Elastica\Script\ScriptFields;
 
@@ -330,7 +330,7 @@ class TopHitsTest extends BaseAggregationTest
      */
     public function testAggregateWithHighlight(): void
     {
-        $queryString = new SimpleQueryString('linux', ['title']);
+        $queryString = new SimpleQueryStringQuery('linux', ['title']);
 
         $agg = (new TopHits('top_tag_hits'))
             ->setHighlight(['fields' => ['title' => new \stdClass()]])
@@ -361,7 +361,7 @@ class TopHitsTest extends BaseAggregationTest
             ->setFieldDataFields(['title'])
         ;
 
-        $query = new Query(new MatchAll());
+        $query = new Query(new MatchAllQuery());
         $query->addAggregation($agg);
 
         $resultSet = $this->_getIndexForTest()->search($query);
@@ -431,7 +431,7 @@ class TopHitsTest extends BaseAggregationTest
             ->addAggregation($innerAgg)
         ;
 
-        $query = new Query(new MatchAll());
+        $query = new Query(new MatchAllQuery());
         $query->addAggregation($outerAgg);
 
         return $this->_getIndexForTest()->search($query)->getAggregation('top_tags');

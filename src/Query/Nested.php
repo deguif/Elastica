@@ -2,56 +2,16 @@
 
 namespace Elastica\Query;
 
+trigger_deprecation('ruflin/elastica', '7.2.0', 'The "%s" class is deprecated, use "%s" instead. It will be removed in 8.0.', Nested::class, NestedQuery::class);
+
 /**
  * Nested query.
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
  * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html
+ * @deprecated since version 7.2.0, use the NestedQuery class instead.
  */
-class Nested extends AbstractQuery
+class Nested extends NestedQuery
 {
-    /**
-     * Adds field to mlt query.
-     *
-     * @param string $path Nested object path
-     *
-     * @return $this
-     */
-    public function setPath(string $path): self
-    {
-        return $this->setParam('path', $path);
-    }
-
-    /**
-     * Sets nested query.
-     *
-     * @return $this
-     */
-    public function setQuery(AbstractQuery $query): self
-    {
-        return $this->setParam('query', $query);
-    }
-
-    /**
-     * Set score method.
-     *
-     * @param string $scoreMode options: avg, total, max and none
-     *
-     * @return $this
-     */
-    public function setScoreMode(string $scoreMode = 'avg'): self
-    {
-        return $this->setParam('score_mode', $scoreMode);
-    }
-
-    /**
-     * Set inner hits.
-     *
-     * @return $this
-     */
-    public function setInnerHits(InnerHits $innerHits): self
-    {
-        return $this->setParam('inner_hits', $innerHits);
-    }
 }

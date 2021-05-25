@@ -8,9 +8,9 @@ use Elastica\Document;
 use Elastica\Exception\InvalidException;
 use Elastica\Exception\ResponseException;
 use Elastica\Query;
-use Elastica\Query\FunctionScore;
-use Elastica\Query\MatchAll;
-use Elastica\Query\QueryString;
+use Elastica\Query\FunctionScoreQuery;
+use Elastica\Query\MatchAllQuery;
+use Elastica\Query\QueryStringQuery;
 use Elastica\Request;
 use Elastica\Response;
 use Elastica\ResultSet;
@@ -351,7 +351,7 @@ class SearchTest extends BaseTest
         ;
         $search = new Search($client);
         $script = new Script('Thread.sleep(100); return _score;');
-        $query = new FunctionScore();
+        $query = new FunctionScoreQuery();
         $query->addScriptScoreFunction($script);
         $resultSet = $search->search($query, ['timeout' => 50]);
         $this->assertTrue($resultSet->hasTimedOut());
@@ -383,12 +383,12 @@ class SearchTest extends BaseTest
         $search->addIndex($index);
 
         // Version param should not be inside by default
-        $results = $search->search(new MatchAll());
+        $results = $search->search(new MatchAllQuery());
         $hit = $results->current();
         $this->assertEquals([], $hit->getParam('_version'));
 
         // Added version param to result
-        $results = $search->search(new MatchAll(), ['version' => true]);
+        $results = $search->search(new MatchAllQuery(), ['version' => true]);
         $hit = $results->current();
         $this->assertEquals(1, $hit->getParam('_version'));
     }
@@ -454,7 +454,7 @@ class SearchTest extends BaseTest
         $count = $search->count();
         $this->assertEquals(6, $count, 'Uses previous query set');
 
-        $count = $search->count(new MatchAll());
+        $count = $search->count(new MatchAllQuery());
         $this->assertEquals(11, $count);
 
         $count = $search->count('bunny');
@@ -510,7 +510,7 @@ class SearchTest extends BaseTest
         $count = $search->count('', false, Request::GET);
         $this->assertEquals(6, $count, 'Uses previous query set');
 
-        $count = $search->count(new MatchAll(), false, Request::GET);
+        $count = $search->count(new MatchAllQuery(), false, Request::GET);
         $this->assertEquals(11, $count);
 
         $count = $search->count('bunny', false, Request::GET);
@@ -560,7 +560,7 @@ class SearchTest extends BaseTest
         $this->assertCount(10, $resultSet);
         $this->assertEquals(11, $resultSet->getTotalHits());
 
-        $query = new QueryString('bunny');
+        $query = new QueryStringQuery('bunny');
         $search->setQuery($query);
 
         $resultSet = $search->search();
@@ -586,10 +586,10 @@ class SearchTest extends BaseTest
 
         $search->addIndex($index);
 
-        $result1 = $search->count(new MatchAll());
+        $result1 = $search->count(new MatchAllQuery());
         $this->assertEquals(1, $result1);
 
-        $result2 = $search->count(new MatchAll(), true);
+        $result2 = $search->count(new MatchAllQuery(), true);
         $this->assertInstanceOf(ResultSet::class, $result2);
         $this->assertEquals(1, $result2->getTotalHits());
     }
@@ -601,7 +601,7 @@ class SearchTest extends BaseTest
     {
         $client = $this->_getClient();
         $index = $client->getIndex('elastica_7086b4c2ee585bbb6740ece5ed7ece01');
-        $query = new MatchAll();
+        $query = new MatchAllQuery();
 
         $search = new Search($client);
         $search->addIndex($index);
@@ -628,7 +628,7 @@ class SearchTest extends BaseTest
         $client = $this->_getClient();
         $search = new Search($client);
 
-        $query = new Query(new MatchAll());
+        $query = new Query(new MatchAllQuery());
         $query->setSize(25);
 
         $search->count($query);

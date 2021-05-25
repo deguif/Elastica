@@ -2,45 +2,14 @@
 
 namespace Elastica\Query;
 
+trigger_deprecation('ruflin/elastica', '7.2.0', 'The "%s" class is deprecated, use "%s" instead. It will be removed in 8.0.', Prefix::class, PrefixQuery::class);
+
 /**
  * Prefix query.
  *
  * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-prefix-query.html
+ * @deprecated since version 7.2.0, use the PrefixQuery class instead.
  */
-class Prefix extends AbstractQuery
+class Prefix extends PrefixQuery
 {
-    /**
-     * @param array $prefix OPTIONAL Calls setRawPrefix with the given $prefix array
-     */
-    public function __construct(array $prefix = [])
-    {
-        $this->setRawPrefix($prefix);
-    }
-
-    /**
-     * setRawPrefix can be used instead of setPrefix if some more special
-     * values for a prefix have to be set.
-     *
-     * @param array $prefix Prefix array
-     *
-     * @return $this
-     */
-    public function setRawPrefix(array $prefix): self
-    {
-        return $this->setParams($prefix);
-    }
-
-    /**
-     * Adds a prefix to the prefix query.
-     *
-     * @param string       $key   Key to query
-     * @param array|string $value Values(s) for the query. Boost can be set with array
-     * @param float        $boost OPTIONAL Boost value (default = 1.0)
-     *
-     * @return $this
-     */
-    public function setPrefix(string $key, $value, float $boost = 1.0): self
-    {
-        return $this->setRawPrefix([$key => ['value' => $value, 'boost' => $boost]]);
-    }
 }

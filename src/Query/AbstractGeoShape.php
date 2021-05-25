@@ -8,6 +8,7 @@ namespace Elastica\Query;
  * @author Bennie Krijger <benniekrijger@gmail.com>
  *
  * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-shape-query.html
+ * @deprecated since version 7.2.0, use the AbstractGeoShapeQuery class instead.
  */
 abstract class AbstractGeoShape extends AbstractQuery
 {
@@ -34,6 +35,13 @@ abstract class AbstractGeoShape extends AbstractQuery
      * @var string
      */
     protected $_relation = self::RELATION_INTERSECT;
+
+    public function __construct()
+    {
+        if (!$this instanceof AbstractGeoShapeQuery) {
+            trigger_deprecation('ruflin/elastica', '7.2.0', 'Extending "%s" class is deprecated, extend "%s" instead. It will be removed in 8.0.', self::class, AbstractGeoShapeQuery::class);
+        }
+    }
 
     /**
      * Sets the relation of the geo_shape field and the query geometry.

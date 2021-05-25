@@ -7,7 +7,7 @@ use Elastica\Index;
 use Elastica\Multi\ResultSet as MultiResultSet;
 use Elastica\Multi\Search as MultiSearch;
 use Elastica\Query;
-use Elastica\Query\Term;
+use Elastica\Query\TermQuery;
 use Elastica\ResultSet;
 use Elastica\Search;
 use Elastica\Test\Base as BaseTest;
@@ -105,7 +105,7 @@ class SearchTest extends BaseTest
         $search1 = new Search($client);
         $search1->addIndex($index);
         $query1 = new Query();
-        $termQuery1 = new Term();
+        $termQuery1 = new TermQuery();
         $termQuery1->setTerm('username', 'farrelley');
         $query1->setQuery($termQuery1);
         $query1->setSize(2);
@@ -118,7 +118,7 @@ class SearchTest extends BaseTest
         $search2 = new Search($client);
         $search2->addIndex($index);
         $query2 = new Query();
-        $termQuery2 = new Term();
+        $termQuery2 = new TermQuery();
         $termQuery2->setTerm('username', 'bunny');
         $query2->setQuery($termQuery2);
         $query2->setSize(3);
@@ -193,7 +193,7 @@ class SearchTest extends BaseTest
         $search1 = new Search($client);
         $search1->addIndex($index);
         $query1 = new Query();
-        $termQuery1 = new Term();
+        $termQuery1 = new TermQuery();
         $termQuery1->setTerm('username', 'farrelley');
         $query1->setQuery($termQuery1);
         $query1->setSize(2);
@@ -206,7 +206,7 @@ class SearchTest extends BaseTest
         $search2 = new Search($client);
         $search2->addIndex($index);
         $query2 = new Query();
-        $termQuery2 = new Term();
+        $termQuery2 = new TermQuery();
         $termQuery2->setTerm('username', 'bunny');
         $query2->setQuery($termQuery2);
         $query2->setSize(3);
@@ -369,7 +369,7 @@ class SearchTest extends BaseTest
         $search1 = new Search($client);
         $search1->addIndex($index);
         $query1 = new Query();
-        $termQuery1 = new Term();
+        $termQuery1 = new TermQuery();
         $termQuery1->setTerm('username', 'farrelley');
         $query1->setQuery($termQuery1);
         $query1->setSize(2);
@@ -382,7 +382,7 @@ class SearchTest extends BaseTest
         $search2 = new Search($client);
         $search2->addIndex($index);
         $query2 = new Query();
-        $termQuery2 = new Term();
+        $termQuery2 = new TermQuery();
         $termQuery2->setTerm('username', 'bunny');
         $query2->setQuery($termQuery2);
         $query2->setSize(3);
@@ -449,7 +449,7 @@ class SearchTest extends BaseTest
         $search1 = new Search($client);
         $search1->addIndex($index);
         $query1 = new Query();
-        $termQuery1 = new Term();
+        $termQuery1 = new TermQuery();
         $termQuery1->setTerm('username', 'farrelley');
         $query1->setQuery($termQuery1);
         $query1->setSize(2);
@@ -462,7 +462,7 @@ class SearchTest extends BaseTest
         $search2 = new Search($client);
         $search2->addIndex($index);
         $query2 = new Query();
-        $termQuery2 = new Term();
+        $termQuery2 = new TermQuery();
         $termQuery2->setTerm('username', 'bunny');
         $query2->setQuery($termQuery2);
         $query2->setSize(3);
@@ -531,7 +531,7 @@ class SearchTest extends BaseTest
         $search1->addIndex($index);
         $search1->setOption('terminate_after', '1');
         $query1 = new Query();
-        $termQuery1 = new Term();
+        $termQuery1 = new TermQuery();
         $termQuery1->setTerm('username', 'bunny');
         $query1->setQuery($termQuery1);
         $query1->setSize(1);
@@ -544,7 +544,7 @@ class SearchTest extends BaseTest
         $search2 = new Search($client);
         $search2->addIndex($index);
         $query2 = new Query();
-        $termQuery2 = new Term();
+        $termQuery2 = new TermQuery();
         $termQuery2->setTerm('username', 'bunny');
         $query2->setQuery($termQuery2);
         $query2->setSize(3);

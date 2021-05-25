@@ -6,7 +6,7 @@ use Elastica\Document;
 use Elastica\Index;
 use Elastica\Query;
 use Elastica\Query\MatchQuery;
-use Elastica\Query\Term;
+use Elastica\Query\TermQuery;
 use Elastica\Test\Base as BaseTest;
 
 /**
@@ -21,7 +21,7 @@ class PostFilterTest extends BaseTest
     {
         $query = new Query();
 
-        $postFilter = new Term(['color' => 'green']);
+        $postFilter = new TermQuery(['color' => 'green']);
         $query->setPostFilter($postFilter);
 
         $data = $query->toArray();
@@ -42,7 +42,7 @@ class PostFilterTest extends BaseTest
 
         $query->setQuery($match);
 
-        $filter = new Term();
+        $filter = new TermQuery();
         $filter->setTerm('color', 'green');
 
         $query->setPostFilter($filter);

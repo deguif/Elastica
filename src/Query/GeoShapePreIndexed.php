@@ -2,6 +2,8 @@
 
 namespace Elastica\Query;
 
+trigger_deprecation('ruflin/elastica', '7.2.0', 'The "%s" class is deprecated, use "%s" instead. It will be removed in 8.0.', GeoShapePreIndexed::class, GeoShapePreIndexedQuery::class);
+
 /**
  * geo_shape query for pre-indexed shapes.
  *
@@ -10,66 +12,8 @@ namespace Elastica\Query;
  * @author Bennie Krijger <benniekrijger@gmail.com>
  *
  * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-shape-query.html
+ * @deprecated since version 7.2.0, use the GeoShapePreIndexedQuery class instead.
  */
-class GeoShapePreIndexed extends AbstractGeoShape
+class GeoShapePreIndexed extends GeoShapePreIndexedQuery
 {
-    /**
-     * elasticsearch id of the pre-indexed shape.
-     *
-     * @var string
-     */
-    protected $_indexedId;
-
-    /**
-     *  elasticsearch index of the pre-indexed shape.
-     *
-     * @var string
-     */
-    protected $_indexedIndex;
-
-    /**
-     *  elasticsearch path/field name of the pre-indexed shape.
-     *
-     * @var string
-     */
-    protected $_indexedPath;
-
-    /**
-     * Construct geo_shape query with a pre-indexed shape.
-     *
-     * @param string $path         The path/field of the shape searched
-     * @param string $indexedId    Id of the pre-indexed shape
-     * @param string $indexedIndex Index of the pre-indexed shape
-     * @param string $indexedPath  Path of the pre-indexed shape
-     */
-    public function __construct(
-        string $path,
-        string $indexedId,
-        string $indexedIndex,
-        string $indexedPath
-    ) {
-        $this->_path = $path;
-        $this->_indexedId = $indexedId;
-        $this->_indexedIndex = $indexedIndex;
-        $this->_indexedPath = $indexedPath;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray(): array
-    {
-        return [
-            'geo_shape' => [
-                $this->_path => [
-                    'indexed_shape' => [
-                        'id' => $this->_indexedId,
-                        'index' => $this->_indexedIndex,
-                        'path' => $this->_indexedPath,
-                    ],
-                    'relation' => $this->_relation,
-                ],
-            ],
-        ];
-    }
 }

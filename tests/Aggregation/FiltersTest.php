@@ -8,7 +8,7 @@ use Elastica\Document;
 use Elastica\Exception\InvalidException;
 use Elastica\Index;
 use Elastica\Query;
-use Elastica\Query\Term;
+use Elastica\Query\TermQuery;
 
 /**
  * @internal
@@ -44,10 +44,10 @@ class FiltersTest extends BaseAggregationTest
 
         $agg = new Filters('by_color');
 
-        $agg->addFilter(new Term(['color' => '']), '');
-        $agg->addFilter(new Term(['color' => '0']), '0');
-        $agg->addFilter(new Term(['color' => 'blue']), 'blue');
-        $agg->addFilter(new Term(['color' => 'red']), 'red');
+        $agg->addFilter(new TermQuery(['color' => '']), '');
+        $agg->addFilter(new TermQuery(['color' => '0']), '0');
+        $agg->addFilter(new TermQuery(['color' => 'blue']), 'blue');
+        $agg->addFilter(new TermQuery(['color' => 'red']), 'red');
 
         $avg = new Avg('avg_price');
         $avg->setField('price');
@@ -65,8 +65,8 @@ class FiltersTest extends BaseAggregationTest
         $this->expectExceptionMessage('Mix named and anonymous keys are not allowed');
 
         $agg = new Filters('by_color');
-        $agg->addFilter(new Term(['color' => '0']), '0');
-        $agg->addFilter(new Term(['color' => '0']));
+        $agg->addFilter(new TermQuery(['color' => '0']), '0');
+        $agg->addFilter(new TermQuery(['color' => '0']));
     }
 
     /**
@@ -79,8 +79,8 @@ class FiltersTest extends BaseAggregationTest
 
         $agg = new Filters('by_color');
 
-        $agg->addFilter(new Term(['color' => '0']));
-        $agg->addFilter(new Term(['color' => '0']), '0');
+        $agg->addFilter(new TermQuery(['color' => '0']));
+        $agg->addFilter(new TermQuery(['color' => '0']), '0');
     }
 
     /**
@@ -106,8 +106,8 @@ class FiltersTest extends BaseAggregationTest
 
         $agg = new Filters('by_color');
 
-        $agg->addFilter(new Term(['color' => 'blue']));
-        $agg->addFilter(new Term(['color' => 'red']));
+        $agg->addFilter(new TermQuery(['color' => 'blue']));
+        $agg->addFilter(new TermQuery(['color' => 'red']));
 
         $avg = new Avg('avg_price');
         $avg->setField('price');
@@ -135,7 +135,7 @@ class FiltersTest extends BaseAggregationTest
 
         $agg = new Filters('by_color');
 
-        $agg->addFilter(new Term(['color' => 'blue']));
+        $agg->addFilter(new TermQuery(['color' => 'blue']));
 
         $agg->setOtherBucket(true);
         $agg->setOtherBucketKey('other');
@@ -149,8 +149,8 @@ class FiltersTest extends BaseAggregationTest
     public function testFilterAggregation(): void
     {
         $agg = new Filters('by_color');
-        $agg->addFilter(new Term(['color' => 'blue']), 'blue');
-        $agg->addFilter(new Term(['color' => 'red']), 'red');
+        $agg->addFilter(new TermQuery(['color' => 'blue']), 'blue');
+        $agg->addFilter(new TermQuery(['color' => 'red']), 'red');
 
         $avg = new Avg('avg_price');
         $avg->setField('price');
@@ -177,7 +177,7 @@ class FiltersTest extends BaseAggregationTest
     public function testSetOtherBucket(): void
     {
         $agg = new Filters('by_color');
-        $agg->addFilter(new Term(['color' => 'red']), 'red');
+        $agg->addFilter(new TermQuery(['color' => 'red']), 'red');
         $agg->setOtherBucket(true);
 
         $avg = new Avg('avg_price');
@@ -205,7 +205,7 @@ class FiltersTest extends BaseAggregationTest
     public function testSetOtherBucketKey(): void
     {
         $agg = new Filters('by_color');
-        $agg->addFilter(new Term(['color' => 'red']), 'red');
+        $agg->addFilter(new TermQuery(['color' => 'red']), 'red');
         $agg->setOtherBucket(true);
         $agg->setOtherBucketKey('other_colors');
 

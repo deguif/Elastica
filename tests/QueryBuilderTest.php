@@ -51,7 +51,7 @@ class QueryBuilderTest extends Base
 
         // Collapse is a special case of the above; it doesn't have an abstract base class for individual parts right
         // now because 'inner_hits' is the only thing that can be set besides field and concurrency.
-        $this->assertInstanceOf(Collapse\InnerHits::class, $qb->collapse()->inner_hits());
+        $this->assertInstanceOf(Collapse\InnerHitsQuery::class, $qb->collapse()->inner_hits());
     }
 }
 

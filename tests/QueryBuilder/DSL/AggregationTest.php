@@ -3,7 +3,7 @@
 namespace Elastica\Test\QueryBuilder\DSL;
 
 use Elastica\Aggregation;
-use Elastica\Query\Exists;
+use Elastica\Query\ExistsQuery;
 use Elastica\QueryBuilder\DSL;
 use Symfony\Bridge\PhpUnit\ExpectDeprecationTrait;
 
@@ -37,7 +37,7 @@ class AggregationTest extends AbstractDSLTest
         $this->_assertImplemented($aggregationDSL, 'date_histogram', Aggregation\DateHistogram::class, ['name', 'field', 1]);
         $this->_assertImplemented($aggregationDSL, 'date_range', Aggregation\DateRange::class, ['name']);
         $this->_assertImplemented($aggregationDSL, 'extended_stats', Aggregation\ExtendedStats::class, ['name']);
-        $this->_assertImplemented($aggregationDSL, 'filter', Aggregation\Filter::class, ['name', new Exists('field')]);
+        $this->_assertImplemented($aggregationDSL, 'filter', Aggregation\Filter::class, ['name', new ExistsQuery('field')]);
         $this->_assertImplemented($aggregationDSL, 'filters', Aggregation\Filters::class, ['name']);
         $this->_assertImplemented($aggregationDSL, 'geo_distance', Aggregation\GeoDistance::class, ['name', 'field', 'origin']);
         $this->_assertImplemented($aggregationDSL, 'geohash_grid', Aggregation\GeohashGrid::class, ['name', 'field']);

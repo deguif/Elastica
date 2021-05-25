@@ -6,46 +6,46 @@ use Elastica\Query\AbstractQuery;
 use Elastica\Query\AbstractSpanQuery;
 use Elastica\Query as BaseQuery;
 use Elastica\Query\BoolQuery;
-use Elastica\Query\Boosting;
-use Elastica\Query\Common;
-use Elastica\Query\ConstantScore;
-use Elastica\Query\DisMax;
-use Elastica\Query\DistanceFeature;
-use Elastica\Query\Exists;
-use Elastica\Query\FunctionScore;
-use Elastica\Query\Fuzzy;
-use Elastica\Query\GeoBoundingBox;
-use Elastica\Query\GeoDistance;
-use Elastica\Query\GeoPolygon;
-use Elastica\Query\HasChild;
-use Elastica\Query\HasParent;
-use Elastica\Query\Ids;
-use Elastica\Query\MatchAll;
-use Elastica\Query\MatchNone;
-use Elastica\Query\MatchPhrase;
-use Elastica\Query\MatchPhrasePrefix;
+use Elastica\Query\BoostingQuery;
+use Elastica\Query\CommonQuery;
+use Elastica\Query\ConstantScoreQuery;
+use Elastica\Query\DisMaxQuery;
+use Elastica\Query\DistanceFeatureQuery;
+use Elastica\Query\ExistsQuery;
+use Elastica\Query\FunctionScoreQuery;
+use Elastica\Query\FuzzyQuery;
+use Elastica\Query\GeoBoundingBoxQuery;
+use Elastica\Query\GeoDistanceQuery;
+use Elastica\Query\GeoPolygonQuery;
+use Elastica\Query\HasChildQuery;
+use Elastica\Query\HasParentQuery;
+use Elastica\Query\IdsQuery;
+use Elastica\Query\MatchAllQuery;
+use Elastica\Query\MatchNoneQuery;
+use Elastica\Query\MatchPhrasePrefixQuery;
+use Elastica\Query\MatchPhraseQuery;
 use Elastica\Query\MatchQuery;
-use Elastica\Query\MoreLikeThis;
-use Elastica\Query\MultiMatch;
-use Elastica\Query\Nested;
-use Elastica\Query\ParentId;
-use Elastica\Query\Percolate;
-use Elastica\Query\Prefix;
-use Elastica\Query\QueryString;
-use Elastica\Query\Range;
-use Elastica\Query\Regexp;
-use Elastica\Query\SimpleQueryString;
-use Elastica\Query\SpanContaining;
-use Elastica\Query\SpanFirst;
-use Elastica\Query\SpanMulti;
-use Elastica\Query\SpanNear;
-use Elastica\Query\SpanNot;
-use Elastica\Query\SpanOr;
-use Elastica\Query\SpanTerm;
-use Elastica\Query\SpanWithin;
-use Elastica\Query\Term;
-use Elastica\Query\Terms;
-use Elastica\Query\Wildcard;
+use Elastica\Query\MoreLikeThisQuery;
+use Elastica\Query\MultiMatchQuery;
+use Elastica\Query\NestedQuery;
+use Elastica\Query\ParentIdQuery;
+use Elastica\Query\PercolateQuery;
+use Elastica\Query\PrefixQuery;
+use Elastica\Query\QueryStringQuery;
+use Elastica\Query\RangeQuery;
+use Elastica\Query\RegexpQuery;
+use Elastica\Query\SimpleQueryStringQuery;
+use Elastica\Query\SpanContainingQuery;
+use Elastica\Query\SpanFirstQuery;
+use Elastica\Query\SpanMultiQuery;
+use Elastica\Query\SpanNearQuery;
+use Elastica\Query\SpanNotQuery;
+use Elastica\Query\SpanOrQuery;
+use Elastica\Query\SpanTermQuery;
+use Elastica\Query\SpanWithinQuery;
+use Elastica\Query\TermQuery;
+use Elastica\Query\TermsQuery;
+use Elastica\Query\WildcardQuery;
 use Elastica\QueryBuilder\DSL;
 
 /**
@@ -82,9 +82,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html
      */
-    public function multi_match(): MultiMatch
+    public function multi_match(): MultiMatchQuery
     {
-        return new MultiMatch();
+        return new MultiMatchQuery();
     }
 
     /**
@@ -102,9 +102,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-boosting-query.html
      */
-    public function boosting(): Boosting
+    public function boosting(): BoostingQuery
     {
-        return new Boosting();
+        return new BoostingQuery();
     }
 
     /**
@@ -114,9 +114,9 @@ class Query implements DSL
      *
      * @param float $cutoffFrequency percentage in decimal form (.001 == 0.1%)
      */
-    public function common_terms(string $field, string $query, float $cutoffFrequency): Common
+    public function common_terms(string $field, string $query, float $cutoffFrequency): CommonQuery
     {
-        return new Common($field, $query, $cutoffFrequency);
+        return new CommonQuery($field, $query, $cutoffFrequency);
     }
 
     /**
@@ -124,9 +124,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-constant-score-query.html
      */
-    public function constant_score(?AbstractQuery $filter = null): ConstantScore
+    public function constant_score(?AbstractQuery $filter = null): ConstantScoreQuery
     {
-        return new ConstantScore($filter);
+        return new ConstantScoreQuery($filter);
     }
 
     /**
@@ -134,9 +134,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-dis-max-query.html
      */
-    public function dis_max(): DisMax
+    public function dis_max(): DisMaxQuery
     {
-        return new DisMax();
+        return new DisMaxQuery();
     }
 
     /**
@@ -146,9 +146,9 @@ class Query implements DSL
      *
      * @param array|string $origin
      */
-    public function distance_feature(string $field, $origin, string $pivot): DistanceFeature
+    public function distance_feature(string $field, $origin, string $pivot): DistanceFeatureQuery
     {
-        return new DistanceFeature($field, $origin, $pivot);
+        return new DistanceFeatureQuery($field, $origin, $pivot);
     }
 
     /**
@@ -156,9 +156,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-function-score-query.html
      */
-    public function function_score(): FunctionScore
+    public function function_score(): FunctionScoreQuery
     {
-        return new FunctionScore();
+        return new FunctionScoreQuery();
     }
 
     /**
@@ -168,9 +168,9 @@ class Query implements DSL
      *
      * @param string $value String to search for
      */
-    public function fuzzy(?string $fieldName = null, ?string $value = null): Fuzzy
+    public function fuzzy(?string $fieldName = null, ?string $value = null): FuzzyQuery
     {
-        return new Fuzzy($fieldName, $value);
+        return new FuzzyQuery($fieldName, $value);
     }
 
     /**
@@ -178,9 +178,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-bounding-box-query.html
      */
-    public function geo_bounding_box(string $key, array $coordinates): GeoBoundingBox
+    public function geo_bounding_box(string $key, array $coordinates): GeoBoundingBoxQuery
     {
-        return new GeoBoundingBox($key, $coordinates);
+        return new GeoBoundingBoxQuery($key, $coordinates);
     }
 
     /**
@@ -190,9 +190,9 @@ class Query implements DSL
      *
      * @param array|string $location
      */
-    public function geo_distance(string $key, $location, string $distance): GeoDistance
+    public function geo_distance(string $key, $location, string $distance): GeoDistanceQuery
     {
-        return new GeoDistance($key, $location, $distance);
+        return new GeoDistanceQuery($key, $location, $distance);
     }
 
     /**
@@ -200,9 +200,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-polygon-query.html
      */
-    public function geo_polygon(string $key, array $points): GeoPolygon
+    public function geo_polygon(string $key, array $points): GeoPolygonQuery
     {
-        return new GeoPolygon($key, $points);
+        return new GeoPolygonQuery($key, $points);
     }
 
     /**
@@ -213,9 +213,9 @@ class Query implements DSL
      * @param AbstractQuery|BaseQuery|string $query
      * @param string                         $type  Parent document type
      */
-    public function has_child($query, ?string $type = null): HasChild
+    public function has_child($query, ?string $type = null): HasChildQuery
     {
-        return new HasChild($query, $type);
+        return new HasChildQuery($query, $type);
     }
 
     /**
@@ -226,9 +226,9 @@ class Query implements DSL
      * @param AbstractQuery|BaseQuery|string $query
      * @param string                         $type  Parent document type
      */
-    public function has_parent($query, string $type): HasParent
+    public function has_parent($query, string $type): HasParentQuery
     {
-        return new HasParent($query, $type);
+        return new HasParentQuery($query, $type);
     }
 
     /**
@@ -236,9 +236,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-ids-query.html
      */
-    public function ids(array $ids = []): Ids
+    public function ids(array $ids = []): IdsQuery
     {
-        return new Ids($ids);
+        return new IdsQuery($ids);
     }
 
     /**
@@ -246,9 +246,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-all-query.html
      */
-    public function match_all(): MatchAll
+    public function match_all(): MatchAllQuery
     {
-        return new MatchAll();
+        return new MatchAllQuery();
     }
 
     /**
@@ -256,9 +256,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-all-query.html#query-dsl-match-none-query
      */
-    public function match_none(): MatchNone
+    public function match_none(): MatchNoneQuery
     {
-        return new MatchNone();
+        return new MatchNoneQuery();
     }
 
     /**
@@ -268,9 +268,9 @@ class Query implements DSL
      *
      * @param mixed|null $values
      */
-    public function match_phrase(?string $field = null, $values = null): MatchPhrase
+    public function match_phrase(?string $field = null, $values = null): MatchPhraseQuery
     {
-        return new MatchPhrase($field, $values);
+        return new MatchPhraseQuery($field, $values);
     }
 
     /**
@@ -280,9 +280,9 @@ class Query implements DSL
      *
      * @param mixed|null $values
      */
-    public function match_phrase_prefix(?string $field = null, $values = null): MatchPhrasePrefix
+    public function match_phrase_prefix(?string $field = null, $values = null): MatchPhrasePrefixQuery
     {
-        return new MatchPhrasePrefix($field, $values);
+        return new MatchPhrasePrefixQuery($field, $values);
     }
 
     /**
@@ -290,9 +290,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-mlt-query.html
      */
-    public function more_like_this(): MoreLikeThis
+    public function more_like_this(): MoreLikeThisQuery
     {
-        return new MoreLikeThis();
+        return new MoreLikeThisQuery();
     }
 
     /**
@@ -300,17 +300,17 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html
      */
-    public function nested(): Nested
+    public function nested(): NestedQuery
     {
-        return new Nested();
+        return new NestedQuery();
     }
 
     /**
      * @param int|string $id
      */
-    public function parent_id(string $type, $id, bool $ignoreUnmapped = false): ParentId
+    public function parent_id(string $type, $id, bool $ignoreUnmapped = false): ParentIdQuery
     {
-        return new ParentId($type, $id, $ignoreUnmapped);
+        return new ParentIdQuery($type, $id, $ignoreUnmapped);
     }
 
     /**
@@ -320,9 +320,9 @@ class Query implements DSL
      *
      * @param array $prefix Prefix array
      */
-    public function prefix(array $prefix = []): Prefix
+    public function prefix(array $prefix = []): PrefixQuery
     {
-        return new Prefix($prefix);
+        return new PrefixQuery($prefix);
     }
 
     /**
@@ -332,9 +332,9 @@ class Query implements DSL
      *
      * @param string $queryString OPTIONAL Query string for object
      */
-    public function query_string(string $queryString = ''): QueryString
+    public function query_string(string $queryString = ''): QueryStringQuery
     {
-        return new QueryString($queryString);
+        return new QueryStringQuery($queryString);
     }
 
     /**
@@ -342,9 +342,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html
      */
-    public function simple_query_string(string $query, array $fields = []): SimpleQueryString
+    public function simple_query_string(string $query, array $fields = []): SimpleQueryStringQuery
     {
-        return new SimpleQueryString($query, $fields);
+        return new SimpleQueryStringQuery($query, $fields);
     }
 
     /**
@@ -352,9 +352,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-range-query.html
      */
-    public function range(?string $fieldName = null, array $args = []): Range
+    public function range(?string $fieldName = null, array $args = []): RangeQuery
     {
-        return new Range($fieldName, $args);
+        return new RangeQuery($fieldName, $args);
     }
 
     /**
@@ -362,9 +362,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html
      */
-    public function regexp(string $key = '', ?string $value = null, float $boost = 1.0): Regexp
+    public function regexp(string $key = '', ?string $value = null, float $boost = 1.0): RegexpQuery
     {
-        return new Regexp($key, $value, $boost);
+        return new RegexpQuery($key, $value, $boost);
     }
 
     /**
@@ -374,9 +374,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-first-query.html
      */
-    public function span_first($match = null, ?int $end = null): SpanFirst
+    public function span_first($match = null, ?int $end = null): SpanFirstQuery
     {
-        return new SpanFirst($match, $end);
+        return new SpanFirstQuery($match, $end);
     }
 
     /**
@@ -386,9 +386,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-multi-term-query.html
      */
-    public function span_multi_term($match = null): SpanMulti
+    public function span_multi_term($match = null): SpanMultiQuery
     {
-        return new SpanMulti($match);
+        return new SpanMultiQuery($match);
     }
 
     /**
@@ -396,9 +396,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-near-query.html
      */
-    public function span_near(array $clauses = [], int $slop = 1, bool $inOrder = false): SpanNear
+    public function span_near(array $clauses = [], int $slop = 1, bool $inOrder = false): SpanNearQuery
     {
-        return new SpanNear($clauses, $slop, $inOrder);
+        return new SpanNearQuery($clauses, $slop, $inOrder);
     }
 
     /**
@@ -406,9 +406,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-not-query.html
      */
-    public function span_not(?AbstractSpanQuery $include = null, ?AbstractSpanQuery $exclude = null): SpanNot
+    public function span_not(?AbstractSpanQuery $include = null, ?AbstractSpanQuery $exclude = null): SpanNotQuery
     {
-        return new SpanNot($include, $exclude);
+        return new SpanNotQuery($include, $exclude);
     }
 
     /**
@@ -416,9 +416,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-or-query.html
      */
-    public function span_or(array $clauses = []): SpanOr
+    public function span_or(array $clauses = []): SpanOrQuery
     {
-        return new SpanOr($clauses);
+        return new SpanOrQuery($clauses);
     }
 
     /**
@@ -426,9 +426,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-term-query.html
      */
-    public function span_term(array $term = []): SpanTerm
+    public function span_term(array $term = []): SpanTermQuery
     {
-        return new SpanTerm($term);
+        return new SpanTermQuery($term);
     }
 
     /**
@@ -436,9 +436,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-containing-query.html
      */
-    public function span_containing(?AbstractSpanQuery $little = null, ?AbstractSpanQuery $big = null): SpanContaining
+    public function span_containing(?AbstractSpanQuery $little = null, ?AbstractSpanQuery $big = null): SpanContainingQuery
     {
-        return new SpanContaining($little, $big);
+        return new SpanContainingQuery($little, $big);
     }
 
     /**
@@ -446,9 +446,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-within-query.html
      */
-    public function span_within(?AbstractSpanQuery $little = null, ?AbstractSpanQuery $big = null): SpanWithin
+    public function span_within(?AbstractSpanQuery $little = null, ?AbstractSpanQuery $big = null): SpanWithinQuery
     {
-        return new SpanWithin($little, $big);
+        return new SpanWithinQuery($little, $big);
     }
 
     /**
@@ -456,9 +456,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html
      */
-    public function term(array $term = []): Term
+    public function term(array $term = []): TermQuery
     {
-        return new Term($term);
+        return new TermQuery($term);
     }
 
     /**
@@ -466,9 +466,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-terms-query.html
      */
-    public function terms(string $field, array $terms = []): Terms
+    public function terms(string $field, array $terms = []): TermsQuery
     {
-        return new Terms($field, $terms);
+        return new TermsQuery($field, $terms);
     }
 
     /**
@@ -476,9 +476,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html
      */
-    public function wildcard(string $field, string $value, float $boost = 1.0): Wildcard
+    public function wildcard(string $field, string $value, float $boost = 1.0): WildcardQuery
     {
-        return new Wildcard($field, $value, $boost);
+        return new WildcardQuery($field, $value, $boost);
     }
 
     /**
@@ -486,9 +486,9 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-exists-query.html
      */
-    public function exists(string $field): Exists
+    public function exists(string $field): ExistsQuery
     {
-        return new Exists($field);
+        return new ExistsQuery($field);
     }
 
     /**
@@ -496,8 +496,8 @@ class Query implements DSL
      *
      * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-percolate-query.html
      */
-    public function percolate(): Percolate
+    public function percolate(): PercolateQuery
     {
-        return new Percolate();
+        return new PercolateQuery();
     }
 }

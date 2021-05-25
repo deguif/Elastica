@@ -2,6 +2,8 @@
 
 namespace Elastica\Query;
 
+trigger_deprecation('ruflin/elastica', '7.2.0', 'The "%s" class is deprecated, use "%s" instead. It will be removed in 8.0.', Ids::class, IdsQuery::class);
+
 /**
  * Ids Query.
  *
@@ -10,56 +12,8 @@ namespace Elastica\Query;
  * @author Tim Rupp
  *
  * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-ids-query.html
+ * @deprecated since version 7.2.0, use the IdsQuery class instead.
  */
-class Ids extends AbstractQuery
+class Ids extends IdsQuery
 {
-    /**
-     * Creates filter object.
-     *
-     * @param array $ids List of ids
-     */
-    public function __construct(array $ids = [])
-    {
-        $this->setIds($ids);
-    }
-
-    /**
-     * Adds one more filter to the and filter.
-     *
-     * @param string $id Adds id to filter
-     *
-     * @return $this
-     */
-    public function addId(string $id): self
-    {
-        $this->_params['values'][] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Sets the ids to filter.
-     *
-     * @param array|string $ids List of ids
-     *
-     * @return $this
-     */
-    public function setIds($ids): self
-    {
-        if (\is_array($ids)) {
-            $this->_params['values'] = $ids;
-        } else {
-            $this->_params['values'] = [$ids];
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray(): array
-    {
-        return ['ids' => $this->_params];
-    }
 }

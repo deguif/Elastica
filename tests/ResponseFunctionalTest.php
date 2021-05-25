@@ -6,7 +6,7 @@ use Elastica\Document;
 use Elastica\Exception\ResponseException;
 use Elastica\Mapping;
 use Elastica\Query;
-use Elastica\Query\MatchAll;
+use Elastica\Query\MatchAllQuery;
 use Elastica\Request;
 use Elastica\Test\Base as BaseTest;
 
@@ -33,7 +33,7 @@ class ResponseFunctionalTest extends BaseTest
         ]);
 
         $query = new Query();
-        $query->setQuery(new MatchAll());
+        $query->setQuery(new MatchAllQuery());
         $index->refresh();
 
         $resultSet = $index->search($query);

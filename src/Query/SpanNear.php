@@ -2,7 +2,7 @@
 
 namespace Elastica\Query;
 
-use Elastica\Exception\InvalidException;
+trigger_deprecation('ruflin/elastica', '7.2.0', 'The "%s" class is deprecated, use "%s" instead. It will be removed in 8.0.', SpanNear::class, SpanNearQuery::class);
 
 /**
  * SpanNear query.
@@ -10,51 +10,8 @@ use Elastica\Exception\InvalidException;
  * @author Marek Hernik <marek.hernik@gmail.com>
  *
  * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-near-query.html
+ * @deprecated since version 7.2.0, use the SpanNearQuery class instead.
  */
-class SpanNear extends AbstractSpanQuery
+class SpanNear extends SpanNearQuery
 {
-    /**
-     * @param AbstractSpanQuery[] $clauses
-     * @param int                 $slop    maximum proximity
-     * @param bool                $inOrder true if order of searched clauses is important
-     */
-    public function __construct(array $clauses = [], int $slop = 1, bool $inOrder = false)
-    {
-        if (!empty($clauses)) {
-            foreach ($clauses as $clause) {
-                if (!$clause instanceof AbstractSpanQuery) {
-                    throw new InvalidException('Invalid parameter. Has to be array or instance of '.AbstractSpanQuery::class);
-                }
-            }
-        }
-        $this->setParams(['clauses' => $clauses]);
-        $this->setSlop($slop);
-        $this->setInOrder($inOrder);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setSlop(int $slop): self
-    {
-        return $this->setParam('slop', $slop);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setInOrder(bool $inOrder): self
-    {
-        return $this->setParam('in_order', $inOrder);
-    }
-
-    /**
-     * Add clause part to query.
-     *
-     * @return $this
-     */
-    public function addClause(AbstractSpanQuery $clause): self
-    {
-        return $this->addParam('clauses', $clause);
-    }
 }

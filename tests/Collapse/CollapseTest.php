@@ -3,7 +3,7 @@
 namespace Elastica\Test\Collapse;
 
 use Elastica\Collapse;
-use Elastica\Collapse\InnerHits;
+use Elastica\Collapse\InnerHitsQuery;
 use Elastica\Document;
 use Elastica\Index;
 use Elastica\Mapping;
@@ -34,7 +34,7 @@ class CollapseTest extends BaseTest
     public function testSetInnerHits(): void
     {
         $collapse = (new Collapse())
-            ->setInnerHits($innerHits = new InnerHits())
+            ->setInnerHits($innerHits = new InnerHitsQuery())
         ;
 
         $this->assertSame($innerHits, $collapse->getParam('inner_hits'));
@@ -59,10 +59,10 @@ class CollapseTest extends BaseTest
     {
         $collapse = new Collapse();
 
-        $innerHits1 = new InnerHits();
+        $innerHits1 = new InnerHitsQuery();
         $innerHits1->setName('most_liked');
 
-        $innerHits2 = new InnerHits();
+        $innerHits2 = new InnerHitsQuery();
         $innerHits2->setName('most_recent');
 
         $collapse->addInnerHits($innerHits1);
@@ -81,10 +81,10 @@ class CollapseTest extends BaseTest
     {
         $collapse = new Collapse();
 
-        $innerHits1 = new InnerHits();
+        $innerHits1 = new InnerHitsQuery();
         $innerHits1->setName('most_liked');
 
-        $innerHits2 = new InnerHits();
+        $innerHits2 = new InnerHitsQuery();
         $innerHits2->setName('most_recent');
 
         $collapse->setInnerHits($innerHits1);
@@ -103,10 +103,10 @@ class CollapseTest extends BaseTest
     {
         $collapse = new Collapse();
 
-        $innerHits1 = new InnerHits();
+        $innerHits1 = new InnerHitsQuery();
         $innerHits1->setName('most_liked');
 
-        $innerHits2 = new InnerHits();
+        $innerHits2 = new InnerHitsQuery();
         $innerHits2->setName('most_recent');
 
         $collapse->setInnerHits($innerHits1);
@@ -117,12 +117,12 @@ class CollapseTest extends BaseTest
         $this->assertEquals($innerHits1, $collapse->getParam('inner_hits')[0]);
         $this->assertEquals($innerHits2, $collapse->getParam('inner_hits')[1]);
 
-        $innerHitsOverride = new InnerHits();
+        $innerHitsOverride = new InnerHitsQuery();
         $innerHitsOverride->setName('override');
 
         $collapse->setInnerHits($innerHitsOverride);
 
-        $this->assertInstanceOf(InnerHits::class, $collapse->getParam('inner_hits'));
+        $this->assertInstanceOf(InnerHitsQuery::class, $collapse->getParam('inner_hits'));
         $this->assertEquals($innerHitsOverride, $collapse->getParam('inner_hits'));
     }
 
@@ -165,7 +165,7 @@ class CollapseTest extends BaseTest
         $query = new Query();
         $query->setSource(false);
 
-        $innerHits = new InnerHits();
+        $innerHits = new InnerHitsQuery();
         $innerHits->setName('last_tweets');
         $innerHits->setSize(5);
         $innerHits->setSort(['date' => 'asc']);
@@ -201,12 +201,12 @@ class CollapseTest extends BaseTest
         $query = new Query();
         $query->setSource(false);
 
-        $innerHitsLiked = new InnerHits();
+        $innerHitsLiked = new InnerHitsQuery();
         $innerHitsLiked->setName('most_liked');
         $innerHitsLiked->setSize(5);
         $innerHitsLiked->setSort(['likes']);
 
-        $innerHitsRecent = new InnerHits();
+        $innerHitsRecent = new InnerHitsQuery();
         $innerHitsRecent->setName('most_recent');
         $innerHitsRecent->setSize(5);
         $innerHitsRecent->setSort(['date' => 'asc']);
@@ -254,7 +254,7 @@ class CollapseTest extends BaseTest
         $query = new Query();
         $query->setSource(false);
 
-        $innerHitsByZip = new InnerHits();
+        $innerHitsByZip = new InnerHitsQuery();
         $innerHitsByZip->setName('by_zip');
         $innerHitsByZip->setSize(5);
         $innerHitsByZip->setSource(false);

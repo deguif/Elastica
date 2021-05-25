@@ -2,6 +2,8 @@
 
 namespace Elastica\Query;
 
+trigger_deprecation('ruflin/elastica', '7.2.0', 'The "%s" class is deprecated, use "%s" instead. It will be removed in 8.0.', GeoShapeProvided::class, GeoShapeProvidedQuery::class);
+
 /**
  * geo_shape query for provided shapes.
  *
@@ -10,61 +12,8 @@ namespace Elastica\Query;
  * @author BennieKrijger <benniekrijger@gmail.com>
  *
  * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-shape-query.html
+ * @deprecated since version 7.2.0, use the GeoShapeProvidedQuery class instead.
  */
-class GeoShapeProvided extends AbstractGeoShape
+class GeoShapeProvided extends GeoShapeProvidedQuery
 {
-    public const TYPE_ENVELOPE = 'envelope';
-    public const TYPE_MULTIPOINT = 'multipoint';
-    public const TYPE_POINT = 'point';
-    public const TYPE_MULTIPOLYGON = 'multipolygon';
-    public const TYPE_LINESTRING = 'linestring';
-    public const TYPE_POLYGON = 'polygon';
-
-    /**
-     * Type of the geo_shape.
-     *
-     * @var string
-     */
-    protected $_shapeType;
-
-    /**
-     * Coordinates making up geo_shape.
-     *
-     * @var array Coordinates making up geo_shape
-     */
-    protected $_coordinates;
-
-    /**
-     * Construct geo_shape query.
-     *
-     * @param string $path        The path/field of the shape searched
-     * @param array  $coordinates Points making up the shape
-     * @param string $shapeType   Type of the geo_shape:
-     *                            point, envelope, linestring, polygon,
-     *                            multipoint or multipolygon
-     */
-    public function __construct(string $path, array $coordinates, string $shapeType = self::TYPE_ENVELOPE)
-    {
-        $this->_path = $path;
-        $this->_shapeType = $shapeType;
-        $this->_coordinates = $coordinates;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray(): array
-    {
-        return [
-            'geo_shape' => [
-                $this->_path => [
-                    'shape' => [
-                        'type' => $this->_shapeType,
-                        'coordinates' => $this->_coordinates,
-                    ],
-                    'relation' => $this->_relation,
-                ],
-            ],
-        ];
-    }
 }

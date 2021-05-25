@@ -28,6 +28,6 @@ class CollapseTest extends AbstractDSLTest
     {
         $collapseDSL = new DSL\Collapse();
 
-        $this->_assertImplemented($collapseDSL, 'inner_hits', Collapse\InnerHits::class, []);
+        $this->_assertImplemented($collapseDSL, 'inner_hits', Collapse\InnerHitsQuery::class, []);
     }
 }

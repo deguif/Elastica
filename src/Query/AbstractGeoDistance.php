@@ -10,6 +10,7 @@ use Elastica\Exception\InvalidException;
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
  * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-distance-query.html
+ * @deprecated since version 7.2.0, use the AbstractGeoDistanceQuery class instead.
  */
 abstract class AbstractGeoDistance extends AbstractQuery
 {
@@ -63,6 +64,10 @@ abstract class AbstractGeoDistance extends AbstractQuery
      */
     public function __construct(string $key, $location)
     {
+        if (!$this instanceof AbstractGeoDistanceQuery) {
+            trigger_deprecation('ruflin/elastica', '7.2.0', 'Extending "%s" class is deprecated, extend "%s" instead. It will be removed in 8.0.', self::class, AbstractGeoDistanceQuery::class);
+        }
+
         $this->setKey($key);
         $this->setLocation($location);
     }
